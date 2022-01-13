@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener(
       catch(err){
         var AR2= "N/A"
       }
-      var discipline = [...document.documentElement.innerText.matchAll(discipline_reg)][0][1]
+      var discipline = [...document.documentElement.innerText.matchAll(discipline_reg)][1][1] //[0][1]
       
       // parsing date
       var date_split = date.split(" ")
