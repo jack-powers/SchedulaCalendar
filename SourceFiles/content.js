@@ -9,12 +9,18 @@ chrome.runtime.onMessage.addListener(
       var location_reg = new RegExp("\n\<b>([A-Za-z0-9 -]+)\<")
       var referees_name = new RegExp("\\t([a-zA-Z -']+)\\t", "g")
       var discipline_reg = new RegExp("am|pm\\t([A-Za-z0-9]+)\\nThe","g")
+      var teams_reg = new RegExp(">(.*)<font style=\"font-size: 12pt\"> v <\/font>(.*)</div>")
+
       var timehr = document.documentElement.innerText.match(timeregex)[1]
       var timeAMPM = document.documentElement.innerText.match(timeregex)[2]
       var date = document.documentElement.innerHTML.match(dateregex)[1]
       var match = document.documentElement.innerHTML.match(match_reg)[1]
       var loc = document.documentElement.innerHTML.match(location_reg)[1]
       var names = [...document.documentElement.innerText.matchAll(referees_name)]
+      var team1 = document.documentElement.innerHTML.match(teams_reg)[1]
+      var team2 = document.documentElement.innerHTML.match(teams_reg)[2]
+      
+
       try{
         var referee_name = names[1][1]
       }
@@ -45,7 +51,7 @@ chrome.runtime.onMessage.addListener(
       var month_mm = month_dict[month]
 
       // message
-      var message = "Your " + match + " match at " + loc + " as " + discipline + ":%0A" + "Referee: " + referee_name + "%0AAR1: " + AR1 + "%0AAR2: " + AR2
+      var message = "Your " + match + " match (" + team1 + " v "+ team2 + ") at " + loc + " as " + discipline + ":%0A" + "Referee: " + referee_name + "%0AAR1: " + AR1 + "%0AAR2: " + AR2
 
       // parsing time
       var convertTime12to24 = time12h => {
@@ -91,7 +97,7 @@ chrome.runtime.onMessage.addListener(
       startTime = year + month_mm + day + "T" + hour + min + "00"
       endTime = year + month_mm + day + "T" + end_hour + min + "00"
 
-      var matchName = match + " Match"
+      var matchName = match + " Match - " + team1 + " v " + team2
 
       var url = "https://www.google.com/calendar/render?action=TEMPLATE&text=" + matchName + "&details=" + message + "&location=" + loc + "&dates=" + startTime + "/" + endTime
       url = url.replace(/\s/g, "+")
