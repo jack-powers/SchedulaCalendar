@@ -27,12 +27,14 @@ chrome.runtime.onMessage.addListener(
       catch(err){
         var referee_name = "N/A"
       }
+
       try{
         var AR1 =names[2][1]
       }
       catch(err){
         var AR1= "N/A"
       }
+      
       try{
         var AR2 =names[3][1]
       }
