@@ -40,6 +40,15 @@ chrome.runtime.onMessage.addListener(
     catch (err) {
       var AR2 = "N/A"
     }
+
+    try {
+      fourthAssessor = names[4][1]
+    }
+    catch (err) {
+      var fourthAssessor = "N/A"
+    }
+
+
     var discipline = [...document.documentElement.innerText.matchAll(discipline_reg)][1][1] //[0][1]
 
     // parsing date
@@ -52,7 +61,7 @@ chrome.runtime.onMessage.addListener(
     var month_mm = month_dict[month]
 
     // message
-    var message = "Your " + match + " match (" + team1 + " v " + team2 + ") at " + loc + " as " + discipline + ":%0A" + "Referee: " + referee_name + "%0AAR1: " + AR1 + "%0AAR2: " + AR2
+    var message = "Your " + match + " match (" + team1 + " v " + team2 + ") at " + loc + " as " + discipline + ":%0A" + "Referee: " + referee_name + "%0AAR1: " + AR1 + "%0AAR2: " + AR2 + "%0AAssessor/4th Official: " + fourthAssessor
 
     // parsing time
     var convertTime12to24 = time12h => {
